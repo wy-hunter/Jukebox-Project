@@ -1,0 +1,3 @@
+Cruel Summer,Daniel Liebt,100,file://./cruelsummer.mp3
+The Spectre,Alan Walker,200,file://./thespectre.mp3
+Ignite,Alan Walker,300,file://./ignite.mp3
