@@ -6,7 +6,7 @@ public class songList {
     public static String[][] songs = new String[100][];
 
     public static void main(String[] args) {
-        String filename = "songList.txt";
+        String filename = "datafile.txt";
         int lineNum = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line = br.readLine();
