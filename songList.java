@@ -12,7 +12,8 @@ public class songList {
             String line = br.readLine();
             while (line != null) {
                 String[] data = line.split(",");
-                for (String s: data) System.out.println(s);
+                for (String s: data) System.out.print(s);
+                System.out.println();
                 songs[lineNum] = data;
                 line = br.readLine();
                 lineNum++;
