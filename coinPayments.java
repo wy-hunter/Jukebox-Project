@@ -1,13 +1,16 @@
 public class coinPayments implements Payments {
-    private int balance = 0;
+    private final balanceBox balance = new balanceBox();
     private String type = "Coins";
 
+    // Takes payment. Returns new balance.
     public int takePayment(int i) {
-        balance += i;
-        return balance;
+        return balance.addFunds(i);
     }
+
+    // Returns funds.
     public String returnFunds() {
-        String s = "Returned " + balance + " in " + type;
+        String s = "Returned " + balance.getFunds() + " in " + type;
+        balance.deductFunds(balance.getFunds());
         return s;
     }
 }

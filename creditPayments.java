@@ -1,13 +1,14 @@
 public class creditPayments implements Payments {
-    private int balance = 0;
+    private final balanceBox balance = new balanceBox();
     private String type = "Credit";
 
     public int takePayment(int i) {
-        balance += i;
-        return balance;
+        return balance.addFunds(i);
     }
+
     public String returnFunds() {
-        String s = "Returned " + balance + " in " + type;
+        String s = "Returned " + balance.getFunds() + " in " + type;
+        balance.deductFunds(balance.getFunds());
         return s;
     }
 
