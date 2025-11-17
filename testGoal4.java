@@ -1,0 +1,75 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+// launches JavaFX and play from the queue with simple buttons
+public class testGoal4 extends Application {
+
+    private static purchaseQueue q;
+    private static songPlayer sp;
+
+    private Label now;
+
+    // what this does:
+    // - Java entry point to start FX
+    // input: 
+    // loadSongs in songList called and sent datafile.txt
+    // returns:
+    // - none
+    public static void main(String[] args) {
+        // load songs
+        songList.loadSongs("datafile.txt");
+
+        // build a queue
+        q = new purchaseQueue(
+            songList.SONG_NAME,
+            songList.SONG_ARTIST,
+            songList.SONG_COST,
+            songList.SONG_URI
+        );
+
+        // add some funds + enqueue a couple for demo
+        balanceBox box = new balanceBox();
+        box.addFunds(1000);           // $10
+        q.enqueue(0, box);            // Cruel Summer
+        q.enqueue(1, box);            // The Spectre
+        q.enqueue(2, box);            // Ignite
+
+        // hook up the player
+        sp = new songPlayer(q, songList.SONG_NAME, songList.SONG_ARTIST, songList.SONG_URI);
+
+        launch(args);
+    }
+
+    // what this does:
+    // - builds a simple UI (no FXML from scene builder): Now Playing label + 3 buttons
+    // goal 4 doesn't require anything fancy
+    // bare bones ui
+    // input:
+    // - the primaryStage provided by FX
+    @Override
+    public void start(Stage primaryStage) {
+        now = new Label("Now Playing: " + sp.nowPlaying());
+
+        Button btnNext = new Button("Next");
+        btnNext.setOnAction(e -> {
+            sp.playNext();
+            now.setText("Now Playing: " + sp.nowPlaying());
+        });
+
+        Button btnPause = new Button("Pause");
+        btnPause.setOnAction(e -> sp.pause());
+
+        Button btnResume = new Button("Resume");
+        btnResume.setOnAction(e -> sp.resume());
+
+        VBox root = new VBox(10, now, btnNext, btnPause, btnResume);
+        root.setStyle("-fx-padding: 16;");
+        primaryStage.setTitle("Goal 4 Player");
+        primaryStage.setScene(new Scene(root, 300, 180));
+        primaryStage.show();
+    }
+}

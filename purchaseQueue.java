@@ -69,7 +69,7 @@ public class purchaseQueue {
     // input:
     // - none
     // returns:
-    // - a String you can println (or show in GUI later)
+    // - a String to println (or show in GUI later)
     public String printQueue() {
         if (queue.isEmpty()) return "[Queue is empty]";
         StringBuilder sb = new StringBuilder();
@@ -127,5 +127,9 @@ public class purchaseQueue {
     private static String centsToDollars(int cents) {
         int d = Math.abs(cents);
         return (cents < 0 ? "-" : "") + (d / 100) + "." + String.format("%02d", d % 100);
+    }
+
+        public String[] getRawNext() {
+        return queue.pollFirst();
     }
 }
