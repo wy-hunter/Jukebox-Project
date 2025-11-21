@@ -3,15 +3,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.*;
 import javafx.event.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.layout.StackPane;
 
 // launches JavaFX and play from the queue with simple buttons
 public class testGoal4 extends Application {
@@ -72,7 +71,7 @@ public class testGoal4 extends Application {
         sort.getItems().addAll("Artist", "Title");
 
         ChoiceBox paymentMethod = new ChoiceBox();
-        paymentMethod.getItems().addAll("Credit Card", "Cash");
+        paymentMethod.getItems().addAll("Credit", "Coin");
 
         Button btnNext = new Button("Next");
         btnNext.setOnAction(e -> {
@@ -88,17 +87,24 @@ public class testGoal4 extends Application {
 
         Button btnAddCredits = new Button("Add Funds");
         btnAddCredits.setOnAction(e -> {
-            box.addFunds(Integer.parseInt(creditText.getCharacters().toString()));
+            if(paymentMethod.getValue() != null) box.addFunds(Integer.parseInt(creditText.getCharacters().toString()));
             credits.setText("Credits: " + box.getFunds());
         });
 
         Button enqueue = new Button("Enqueue");
         Button enqueueFront = new Button("Enqueue at Front");
 
+        ListView<String> list = new ListView<String>();
+        ObservableList<String> items =FXCollections.observableArrayList (q.printQueue());
+        list.setItems(items);
+
+        list.setPrefWidth(100);
+        list.setPrefHeight(70);
+
         HBox hb1 = new HBox(20, sortBy, sort);
         HBox hb2 = new HBox(20, enqueue, enqueueFront);
         HBox hb3 = new HBox(20, addAmount, creditText, btnAddCredits, paymentMethod);
-        VBox vb1 = new VBox(20, now, hb1, btnNext, btnPause, btnResume, hb2, credits, hb3);
+        VBox vb1 = new VBox(20, now, hb1, list, btnNext, btnPause, btnResume, hb2, credits, hb3);
         root.getChildren().add(vb1);
 
         primaryStage.setTitle("Song Player");

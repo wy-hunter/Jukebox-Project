@@ -12,5 +12,6 @@
         "javafx-sdk-25.0.1/lib/jdk.jsobject.jar",
         "javafx-sdk-25.0.1/lib/jfx.incubator.input.jar",
         "javafx-sdk-25.0.1/lib/jfx.incubator.richtext.jar"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
