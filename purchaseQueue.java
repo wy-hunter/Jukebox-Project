@@ -129,7 +129,7 @@ public class purchaseQueue {
         return (cents < 0 ? "-" : "") + (d / 100) + "." + String.format("%02d", d % 100);
     }
 
-        public String[] getRawNext() {
+    public String[] getRawNext() {
         return queue.pollFirst();
     }
 }

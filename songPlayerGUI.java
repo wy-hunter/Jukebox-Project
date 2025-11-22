@@ -18,6 +18,7 @@ public class songPlayerGUI extends Application {
     private static purchaseQueue q;
     private static songPlayer sp;
     private static balanceBox box;
+    private static songList listOfSongs;
 
     // what this does:
     // - Java entry point to start FX
@@ -27,7 +28,7 @@ public class songPlayerGUI extends Application {
     // - none
     public static void main(String[] args) {
         // load songs
-        songList.loadSongs("datafile.txt");
+        listOfSongs.loadSongs("datafile.txt");
 
         // build a queue
         q = new purchaseQueue(
@@ -58,17 +59,32 @@ public class songPlayerGUI extends Application {
     // - the primaryStage provided by FX
     @Override
     public void start(Stage primaryStage) {
+        ListView<String> list = new ListView<String>();
+        fillList(list);
+        list.setPrefWidth(100);
+        list.setPrefHeight(70);
+
         Group root = new Group();
 	    Scene scene = new Scene(root, 1000, 800, Color.WHITE);
-
         Label now = new Label("Now Playing: " + sp.nowPlaying());
         Label sortBy = new Label("Sort By: ");
         Label credits = new Label("Credits: " + box.getFunds());
         Label addAmount = new Label("Add funds: ");
         TextField creditText = new TextField();
+        Label songIndex = new Label("Song Index: ");
+        TextField songText = new TextField();
 
         ChoiceBox sort = new ChoiceBox();
         sort.getItems().addAll("Artist", "Title");
+        sort.setOnAction(e -> {
+            if (sort.getValue().equals("Artist")) {
+                listOfSongs.sortList(1);
+            } else if (sort.getValue().equals("Title")) {
+                listOfSongs.sortList(0);
+            }
+            list.getItems().clear();
+            fillList(list);
+        });
 
         ChoiceBox paymentMethod = new ChoiceBox();
         paymentMethod.getItems().addAll("Credit", "Coin");
@@ -92,17 +108,19 @@ public class songPlayerGUI extends Application {
         });
 
         Button enqueue = new Button("Enqueue");
+        enqueue.setOnAction(e -> {
+            q.enqueue(list.getSelectionModel().getSelectedIndex(), box);
+            credits.setText("Credits: " + box.getFunds());
+        });
+
         Button enqueueFront = new Button("Enqueue at Front");
-
-        ListView<String> list = new ListView<String>();
-        ObservableList<String> items =FXCollections.observableArrayList (q.printQueue());
-        list.setItems(items);
-
-        list.setPrefWidth(100);
-        list.setPrefHeight(70);
+        enqueueFront.setOnAction(e -> {
+            q.enqueueFront(list.getSelectionModel().getSelectedIndex(), box, 50);
+            credits.setText("Credits: " + box.getFunds());
+        });
 
         HBox hb1 = new HBox(20, sortBy, sort);
-        HBox hb2 = new HBox(20, enqueue, enqueueFront);
+        HBox hb2 = new HBox(20, songText, songIndex, enqueue, enqueueFront);
         HBox hb3 = new HBox(20, addAmount, creditText, btnAddCredits, paymentMethod);
         VBox vb1 = new VBox(20, now, hb1, list, btnNext, btnPause, btnResume, hb2, credits, hb3);
         root.getChildren().add(vb1);
@@ -111,4 +129,25 @@ public class songPlayerGUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    private void fillList(ListView<String> list) {
+        String temp;
+        for(String[] s: listOfSongs.songs) {
+            if (s != null) {
+                temp = s[0] + " - " + s[1];
+                list.getItems().add(temp);
+            }
+        }
+    }
+
+    /*
+    private int getSongIndex(String title) {
+        for (int i = 0; i < listOfSongs.songs.length; ++i) {
+            if (listOfSongs.songs[i] != null) {
+                if (listOfSongs.songs[i].equals(listOfSongs.songs[0])) return i;
+            }
+        }
+        return -1;
+    }
+    */
 }

@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
 
 //refactored to better clean up the console output still does the same thing
 // what this does:
@@ -32,11 +34,28 @@ public class songList {
         return count;
     }
 
+    public static void sortList(int index) {
+        // 0 = sort by title, 1 = sort by artist
+        Arrays.sort(songs, new Comparator<String[]>() {
+            @Override
+            public int compare(final String[] first, final String[] second) {
+                if (first != null && second != null) {
+                    final String firsts = first[index];
+                    final String seconds = second[index];
+                    return firsts.compareTo(seconds);
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
+
     // (not needed for the JavaFX app)
     // what this does:
     // - main for testing loading songs
     public static void main(String[] args) {
         int n = loadSongs("datafile.txt");
         System.out.println("Loaded " + n + " songs.");
+        sortList(1);
     }
 }
