@@ -34,6 +34,11 @@ public class songList {
         return count;
     }
 
+    /**
+     * Sorts the list of songs either by author or title (specified by index).
+     * 
+     * @param index
+     */
     public static void sortList(int index) {
         // 0 = sort by title, 1 = sort by artist
         Arrays.sort(songs, new Comparator<String[]>() {

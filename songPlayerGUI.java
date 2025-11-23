@@ -130,6 +130,11 @@ public class songPlayerGUI extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Fills the ListView object with the song name and song artist.
+     * 
+     * @param list
+     */
     private void fillList(ListView<String> list) {
         String temp;
         for(String[] s: listOfSongs.songs) {
@@ -139,15 +144,4 @@ public class songPlayerGUI extends Application {
             }
         }
     }
-
-    /*
-    private int getSongIndex(String title) {
-        for (int i = 0; i < listOfSongs.songs.length; ++i) {
-            if (listOfSongs.songs[i] != null) {
-                if (listOfSongs.songs[i].equals(listOfSongs.songs[0])) return i;
-            }
-        }
-        return -1;
-    }
-    */
 }
