@@ -4,20 +4,23 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 
-//refactored to better clean up the console output still does the same thing
-// what this does:
-// - holds a list of songs read from a file
-
 public class songList {
+    /**
+     * This class represents the song list.
+     * It holds a list of songs read from a file, and stores them in a 2D array.
+     * Each array within the 2D array is in the format [Title, Artist, Cost, URI].
+     * 
+     * @author William Yang, Mohammed Uddin
+     */
     public static String[][] songs = new String[100][];
     public final static int SONG_NAME = 0, SONG_ARTIST = 1, SONG_COST = 2, SONG_URI = 3;
 
-    // what this does:
-    // - reads the file and puts each line into songs[]
-    // input:
-    // - filename: like "datafile.txt"
-    // returns:
-    // - how many songs we actually loaded
+    /**
+     * This function reads the file and puts each line into the 2D array.
+     * 
+     * @param filename
+     * @return int
+     */
     public static int loadSongs(String filename) {
         int count = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -55,9 +58,11 @@ public class songList {
         });
     }
 
-    // (not needed for the JavaFX app)
-    // what this does:
-    // - main for testing loading songs
+    /**
+     * Main function for testing file parsing of songs.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         int n = loadSongs("datafile.txt");
         System.out.println("Loaded " + n + " songs.");

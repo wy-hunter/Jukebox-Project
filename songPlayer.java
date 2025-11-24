@@ -2,8 +2,12 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.nio.file.Paths;
 
-// plays songs from purchaseQueue using JavaFX MediaPlayer
 public class songPlayer {
+    /**
+     * This class plays songs from the purchaseQueue using JavaFX MediaPlayer.
+     * 
+     * @author William Yang, Mohammed Uddin.
+     */
 
     private final purchaseQueue queue;
     private MediaPlayer player;
@@ -11,13 +15,14 @@ public class songPlayer {
 
     private final int SONG_NAME, SONG_ARTIST, SONG_URI;
 
-    // what this does:
-    // - remembers the queue + indexes so we can pop + show labels
-    // input:
-    // - q: the same queue you filled in goal 3
-    // - nameIdx, artistIdx, uriIdx: positions in songs[][]
-    // returns:
-    // - none
+    /**
+     * Constructor for songPlayer class. This class handles song queues through indexing each song.
+     * 
+     * @param q
+     * @param nameIdx
+     * @param artistIdx
+     * @param uriIdx
+     */
     public songPlayer(purchaseQueue q, int nameIdx, int artistIdx, int uriIdx) {
         this.queue = q;
         this.SONG_NAME = nameIdx;
@@ -25,13 +30,11 @@ public class songPlayer {
         this.SONG_URI = uriIdx;
     }
 
-    // what this does:
-    // - stops anything currently playing
-    // - takes the next song out of the queue and starts it
-    // input:
-    // - none
-    // returns:
-    // - true if it started a song, false if queue empty or bad uri
+    /**
+     * This function stops the currently playing song and immediately plays the next song in queue.
+     * 
+     * @return boolean
+     */
     public boolean playNext() {
         stop(); // stop current if any
 
@@ -55,32 +58,23 @@ public class songPlayer {
         }
     }
 
-    // what this does:
-    // - pauses current song if one is playing
-    // input:
-    // - none
-    // returns:
-    // - none
+    /**
+     * This function pauses the song.
+     */
     public void pause() {
         if (player != null) player.pause();
     }
 
-    // what this does:
-    // - resumes current song if paused
-    // input:
-    // - none
-    // returns:
-    // - none
+    /**
+     * This function resumes the song.
+     */
     public void resume() {
         if (player != null) player.play();
     }
 
-    // what this does:
-    // - fully stops and releases the player
-    // input:
-    // - none
-    // returns:
-    // - none
+    /**
+     * This function fully stops the song player.
+     */
     public void stop() {
         if (player != null) {
             try { player.stop(); } catch (Exception ignored) {}
@@ -90,12 +84,12 @@ public class songPlayer {
         current = null;
     }
 
-    // what this does:
-    // - tells you what’s currently playing (Title — Artist) or "[none]"
-    // input:
-    // - none
-    // returns:
-    // - string label for UI/console
+    /**
+     * This function displays the title and the artist of the song that's currently playing.
+     * Returns [none] if no song is playing.
+     * 
+     * @return String
+     */
     public String nowPlaying() {
         if (current == null) return "[none]";
         return current[SONG_NAME] + " — " + current[SONG_ARTIST];
@@ -103,12 +97,12 @@ public class songPlayer {
 
     // --- helpers ---
 
-    // what this does:
-    // - cleans up your uri string so JavaFX Media can read local files
-    // input:
-    // - raw: whatever you stored in csv (e.g., "file://./thespectre.mp3")
-    // returns:
-    // - a valid URI string for Media(…)
+    /**
+     * This function cleans up URI string for JavaFX to read local files.
+     * 
+     * @param raw
+     * @return String
+     */
     private String resolveUri(String raw) {
         if (raw == null) return null;
 

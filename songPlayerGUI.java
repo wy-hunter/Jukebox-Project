@@ -12,20 +12,28 @@ import javafx.stage.Stage;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.StackPane;
 
-// launches JavaFX and play from the queue with simple buttons
 public class songPlayerGUI extends Application {
+    /**
+     * This class uses JavaFX for the GUI of the Song Player.
+     * Contains all the required UI items for the Song player.
+     * Displays the available songs from a list of songs.
+     * Allows user to enqueue songs (either at end or front).
+     * Allows user to add funds to the song player.
+     * Includes a pause, play, and skip button.
+     * 
+     * @author William Yang, Mohammed Uddin
+     */
 
     private static purchaseQueue q;
     private static songPlayer sp;
     private static balanceBox box;
     private static songList listOfSongs;
 
-    // what this does:
-    // - Java entry point to start FX
-    // input: 
-    // loadSongs in songList called and sent datafile.txt
-    // returns:
-    // - none
+    /**
+     * Main function to start JavaFX.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         // load songs
         listOfSongs.loadSongs("datafile.txt");
@@ -51,12 +59,12 @@ public class songPlayerGUI extends Application {
         launch(args);
     }
 
-    // what this does:
-    // - builds a simple UI (no FXML from scene builder): Now Playing label + 3 buttons
-    // goal 4 doesn't require anything fancy
-    // bare bones ui
-    // input:
-    // - the primaryStage provided by FX
+    /**
+     * Builds a simple UI (no FXML from scene builder).
+     * Contains all the required buttons for the song player.
+     * 
+     * @param Stage
+     */
     @Override
     public void start(Stage primaryStage) {
         ListView<String> list = new ListView<String>();

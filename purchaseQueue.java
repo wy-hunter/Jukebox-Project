@@ -3,17 +3,24 @@ import java.util.Deque;
 
 // handles buying songs (using a shared balanceBox) and keeping them in play order
 public class purchaseQueue {
-
+    /**
+     * This class handles buying songs (using a shared balanceBox) and keeping them in play order.
+     * This class also handles queueing the songs, including the enqueue and enqueue first methods.
+     * 
+     * @author William Yang, Mohammed Uddin
+     */
     // use same positions from songList so we can read fields cleanly
     private final int SONG_NAME, SONG_ARTIST, SONG_COST, SONG_URI;
     private final Deque<String[]> queue = new ArrayDeque<>();
 
-    // what this does:
-    // - remembers the indices for name/artist/cost/uri so we can print later
-    // input:
-    // - nameIdx, artistIdx, costIdx, uriIdx: positions in songs[][] for each field
-    // returns:
-    // - none
+    /**
+     * Constructor for purchaseQueue. Remembers the indices for name/artist/cost/uri so we can print later.
+     * 
+     * @param nameIdx
+     * @param artistIdx
+     * @param costIdx
+     * @param uriIdx
+     */
     public purchaseQueue(int nameIdx, int artistIdx, int costIdx, int uriIdx) {
         this.SONG_NAME = nameIdx;
         this.SONG_ARTIST = artistIdx;
@@ -21,14 +28,14 @@ public class purchaseQueue {
         this.SONG_URI = uriIdx;
     }
 
-    // what this does:
-    // - tries to buy the song at songs[songIndex] using money from box
-    // - if enough money, puts it at the end of the queue
-    // input:
-    // - songIndex: which song in songs[][]
-    // - box: the shared balance box we’re drawing from
-    // returns:
-    // - true if purchase worked and we queued it, false if not enough money or bad index
+    /**
+     * This class enqueues the song by spending funds to purchase the song.
+     * If there is not enough money, the method will return false. Otherwise, returns true.
+     * 
+     * @param songIndex
+     * @param box
+     * @return boolean 
+     */
     public boolean enqueue(int songIndex, balanceBox box) {
         String[] song = get(songIndex);
         if (song == null) return false;
@@ -43,15 +50,15 @@ public class purchaseQueue {
         return false;
     }
 
-    // what this does:
-    // - same as enqueue but places the song at the FRONT (like a priority play)
-    // - charges an extra fee (extraFee >= 0)
-    // input:
-    // - songIndex: which song
-    // - box: the shared balance
-    // - extraFee: additional cents to charge on top of song cost
-    // returns:
-    // - true if we had enough and added to front, false otherwise
+    /**
+     * This class also enqueues the song but places the song at the FRONT (like a priority play). 
+     * There is an extra fee charged for enqueueing at the front. 
+     * 
+     * @param songIndex
+     * @param box
+     * @param extraFee
+     * @return
+     */
     public boolean enqueueFront(int songIndex, balanceBox box, int extraFee) {
         String[] song = get(songIndex);
         if (song == null) return false;
@@ -64,12 +71,11 @@ public class purchaseQueue {
         return false;
     }
 
-    // what this does:
-    // - prints the queue in a readable list (1., 2., …)
-    // input:
-    // - none
-    // returns:
-    // - a String to println (or show in GUI later)
+    /**
+     * Prints the queue in a readable list (1., 2., …)
+     * 
+     * @return String
+     */
     public String printQueue() {
         if (queue.isEmpty()) return "[Queue is empty]";
         StringBuilder sb = new StringBuilder();
@@ -83,12 +89,11 @@ public class purchaseQueue {
         return sb.toString();
     }
 
-    // what this does:
-    // - pops the next song from the queue and gives back its URI
-    // input:
-    // - none
-    // returns:
-    // - the URI string for the next song to play, or null if queue is empty
+    /**
+     * Pops the next song from the queue and gives back its URI.
+     * 
+     * @return String
+     */
     public String nextSong() {
         String[] next = queue.pollFirst();
         return (next == null) ? null : next[SONG_URI];
@@ -96,39 +101,44 @@ public class purchaseQueue {
 
     // --- helpers (internal) ---
 
-    // what this does:
-    // - safely pulls songs[songIndex]; returns null if out of bounds
-    // input:
-    // - songIndex
-    // returns:
-    // - String[] for that song or null
+    /**
+     * Safely pulls songs[songIndex]; returns null if out of bounds.
+     * 
+     * @param songIndex
+     * @return String[]
+     */
     private static String[] get(int songIndex) {
         if (songIndex < 0 || songIndex >= songList.songs.length) return null;
         return songList.songs[songIndex];
     }
 
-    // what this does:
-    // - parses an int from a String; if bad input returns def
-    // input:
-    // - s: the string
-    // - def: fallback value
-    // returns:
-    // - parsed int or def
+    /**
+     * Parses an int from a String; if bad input returns def.
+     * 
+     * @param s
+     * @param def
+     * @return int
+     */
     private static int parseIntSafe(String s, int def) {
         try { return Integer.parseInt(s.trim()); } catch (Exception e) { return def; }
     }
 
-    // what this does:
-    // - converts cents to a dollars string like 199 -> "1.99"
-    // input:
-    // - cents
-    // returns:
-    // - formatted dollars string
+    /**
+     * Converts cents to a dollars string like 199 -> "1.99"
+     * 
+     * @param cents
+     * @return String
+     */
     private static String centsToDollars(int cents) {
         int d = Math.abs(cents);
         return (cents < 0 ? "-" : "") + (d / 100) + "." + String.format("%02d", d % 100);
     }
 
+    /**
+     * Polls first from the queue.
+     * 
+     * @return String[]
+     */
     public String[] getRawNext() {
         return queue.pollFirst();
     }
