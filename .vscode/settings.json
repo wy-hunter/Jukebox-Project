@@ -11,7 +11,18 @@
         "javafx-sdk-25.0.1/lib/javafx.web.jar",
         "javafx-sdk-25.0.1/lib/jdk.jsobject.jar",
         "javafx-sdk-25.0.1/lib/jfx.incubator.input.jar",
-        "javafx-sdk-25.0.1/lib/jfx.incubator.richtext.jar"
+        "javafx-sdk-25.0.1/lib/jfx.incubator.richtext.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\javafx.base.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\javafx.controls.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\javafx.fxml.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\javafx.graphics.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\javafx.media.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\javafx.swing.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\javafx.web.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\javafx-swt.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\jdk.jsobject.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\jfx.incubator.input.jar",
+        "c:\\Program Files\\Java\\javafx-sdk-25.0.1\\lib\\jfx.incubator.richtext.jar"
     ],
     "java.debug.settings.onBuildFailureProceed": true
 }
